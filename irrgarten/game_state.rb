@@ -1,14 +1,14 @@
 # encoding: utf-8
 
 module Irrgarten
-		class Gamestate
-				def initialize(labyrinthString = "", playerString = "", monsterString = "", currentPlayer = 0, winner = false, logString = "")
-						@labyrinth = labyrinthString
-						@players = playerString
-						@monsters = monsterString
-						@currentPlayer = currentPlayer
+		class GameState
+				def initialize(labyrinth_string = "", player_string = "", monster_string = "", current_player = 0, winner = false, log_string = "")
+						@labyrinth = labyrinth_string
+						@players = player_string
+						@monsters = monster_string
+						@currentPlayer = current_player
 						@winner = winner
-						@log = logString
+						@log = log_string
 				end
 	
 				def labyrinth
@@ -23,8 +23,8 @@ module Irrgarten
 						@monsters
 				end
 
-				def currentPlayer
-						@currentPlayer
+				def current_player
+						@current_player
 				end
 
 				def winner
