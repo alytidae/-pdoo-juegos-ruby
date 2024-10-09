@@ -17,7 +17,7 @@ module Irrgarten
 			end
 	
 			def to_s
-					return "S[#{@protection},#{uses}]"
+					return "S[#{@protection},#{@uses}]"
 			end
 	end
 end
