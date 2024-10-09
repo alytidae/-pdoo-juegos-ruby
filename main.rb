@@ -91,7 +91,7 @@ class Dice
         @generator.rand(0..MAX_USES)
     end
 
-    def intensity(competence)
+    def self.intensity(competence)
         @generator.rand(0...competence)
     end
 
@@ -102,5 +102,3 @@ class Dice
         @generator.rand < probability
     end
 end
-
-puts Dice.random_intelligence
