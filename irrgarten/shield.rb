@@ -19,5 +19,9 @@ module Irrgarten
 			def to_s
 					return "S[#{@protection},#{@uses}]"
 			end
+			
+			def discard
+          return Dice.discard_element(@uses)
+      end
 	end
 end
