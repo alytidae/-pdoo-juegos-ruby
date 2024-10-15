@@ -13,7 +13,6 @@ module Irrgarten
             @intelligence = intelligence
             @strength = strength
             @health = INITIAL_HEALTH
-            #TODO: What should i put in row and col?
             @row = 0
             @col = 0
             @consecutive_hits = 0
@@ -51,7 +50,7 @@ module Irrgarten
         
         def move(direction, validMoves)
             #TODO: Complete it, but not in the second practice
-            nil
+            throw NotImplementedError.new("This method will be implemented in the next practice")
         end
 
         def attack
@@ -60,12 +59,12 @@ module Irrgarten
 
         def defend(received_attack)
             #TODO: From docs: Este método delega su funcionalidad en el método manageHit
-            nil
+            throw NotImplementedError.new("This method will be implemented in the next practice")
         end
 
         def receive_reward
             #TODO: Complete it, but not in the second practice
-            nil
+            throw NotImplementedError.new("This method will be implemented in the next practice")
         end
 
         def to_s
@@ -76,11 +75,11 @@ module Irrgarten
         end
 
         def receive_weapon(weapon)
-            nil
+            throw NotImplementedError.new("This method will be implemented in the next practice")
         end
 
         def receive_shield(s)
-            nil
+            throw NotImplementedError.new("This method will be implemented in the next practice")
         end
 
         def new_weapon
@@ -114,7 +113,7 @@ module Irrgarten
 
         def manage_hit(received_attack)
             #TODO: Complete it, but not in the second practice
-            nil
+            throw NotImplementedError.new("This method will be implemented in the next practice")
         end
 
         def reset_hits
