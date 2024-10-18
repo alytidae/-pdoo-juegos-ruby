@@ -31,8 +31,14 @@ module Irrgarten
 			@row, @col = row, col
 		end
 		
+		def got_wounded
+			@health -= 1
+		end
+		
 		def to_s
 			"Monster #{@name} (health: #{@health}, intelligence: #{@intelligence}, strength: #{@strength}, pos: (#{@row}, #{@col}))"
 		end
+		
+		private :got_wounded
 	end
 end
