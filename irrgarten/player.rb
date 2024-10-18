@@ -4,7 +4,7 @@ module Irrgarten
     MAX_WEAPONS = 2
     MAX_SHIELDS = 3
     INITIAL_HEALTH = 10
-    HITS_TO_LOSE = 3
+    HITS2LOSE = 3
 
     class Player
         def initialize(number, intelligence, strength)
@@ -13,8 +13,8 @@ module Irrgarten
             @intelligence = intelligence
             @strength = strength
             @health = INITIAL_HEALTH
-            @row = 0
-            @col = 0
+            @row = -1
+            @col = -1
             @consecutive_hits = 0
             @weapons = []
             @shields = []
@@ -67,11 +67,26 @@ module Irrgarten
             throw NotImplementedError.new("This method will be implemented in the next practice")
         end
 
+            @number = number
+            @name = "Player #" + number.to_s()
+            @intelligence = intelligence
+            @strength = strength
+            @health = INITIAL_HEALTH
+            @row = -1
+            @col = -1
+            @consecutive_hits = 0
+            @weapons = []
+            @shields = []
+
         def to_s
             "Player #{@name}:\n" +
+            "  Intelligence: #{@intelligence}\n" +
+            "  Strength: #{@strength}\n" +
             "  Health: #{@health}\n" +
             "  Position: (#{@row}, #{@col})\n" +
             "  Consecutive Hits: #{@consecutive_hits}\n" +
+            "  Weapons: #{@weapons}\n" +
+            "  Shields: #{@shields}\n" +
         end
 
         def receive_weapon(weapon)
@@ -96,19 +111,18 @@ module Irrgarten
 
         def sum_weapons
             res = 0
-            @weapons.each{|x| res += x}
+            @weapons.each{|x| res += x.attack}
             res
         end
 
         def sum_shields
-            # What the difference between this method and defend?
+            res = 0
+            @shields.each{|x| res += x.protect}
+            res
         end
 
         def defensive_energy
-            res = @intelligence
-            @shields.each{|x| res += x}
-
-            res
+            @intelligence + sum_shields
         end
 
         def manage_hit(received_attack)
