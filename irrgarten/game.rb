@@ -9,8 +9,8 @@ module Irrgarten
             @log = ""  
             @monsters = []  
 
-            #TODO: Add later
-            @labyrinth = nil 
+			#TODO: Decide what value put here.
+            @labyrinth = Labyrinth.new(10, 10, 9, 9)
             @players = []  
 
             nplayers.times do |i|
@@ -18,11 +18,13 @@ module Irrgarten
             end
 
             @current_player = @players[@current_player_index]  
+
+			configure_labyrinth
+			spread_players
         end
 
         def finished
-            # TODO: Complete later in the next practice
-            throw NotImplementedError.new("This method will be implemented in the next practice")
+			@labyrinth.have_a_winner
         end
 
         def get_game_state
