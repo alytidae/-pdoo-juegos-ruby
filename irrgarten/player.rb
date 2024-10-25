@@ -49,8 +49,13 @@ module Irrgarten
         end
         
         def move(direction, validMoves)
-            #TODO: Complete it, but not in the second practice
-            throw NotImplementedError.new("This method will be implemented in the next practice")
+            size = validMoves.size
+            contained = validMoves.include?(direction)
+            if (size > 0 && !contained)
+            	return validMoves[0]
+            else
+            	return direction
+            end
         end
 
         def attack
@@ -58,25 +63,22 @@ module Irrgarten
         end
 
         def defend(received_attack)
-            #TODO: From docs: Este método delega su funcionalidad en el método manageHit
-            throw NotImplementedError.new("This method will be implemented in the next practice")
+            manage_hit(received_attack)
         end
 
         def receive_reward
-            #TODO: Complete it, but not in the second practice
-            throw NotImplementedError.new("This method will be implemented in the next practice")
+            w_reward, s_reward = Dice.weapons_reward, Dice.shields_reward
+            for i in 1..w_reward do
+            	wnew = new_weapon
+            	receive_weapon(wnew)
+            end
+            for i in 1..s_reward do
+            	snew = new_shield
+            	receive_shield(snew)
+            end
+            extra_health = Dice.health_reward
+            @health += extra_health
         end
-
-            @number = number
-            @name = "Player #" + number.to_s()
-            @intelligence = intelligence
-            @strength = strength
-            @health = INITIAL_HEALTH
-            @row = -1
-            @col = -1
-            @consecutive_hits = 0
-            @weapons = []
-            @shields = []
 
         def to_s
             "Player #{@name}:\n" +
@@ -126,8 +128,19 @@ module Irrgarten
         end
 
         def manage_hit(received_attack)
-            #TODO: Complete it, but not in the second practice
-            throw NotImplementedError.new("This method will be implemented in the next practice")
+            defense = defensive_energy
+            if defense < received_attack
+            	got_wounded
+            	inc_consecutive_hits
+            else
+            	reset_hits
+            end
+            if (@consecutive_hits == HITS2LOSE or dead)
+            	reset_hits
+            	return true
+            else
+            	return false
+            end
         end
 
         def reset_hits
@@ -139,7 +152,9 @@ module Irrgarten
         end
 
         def inc_consecutive_hits
-            @consecutive_hits += 1
+           @consecutive_hits += 1
         end
+        
+        private :receive_weapon, :receive_shield, :new_weapon, :new_shield, :sum_weapons, :sum_shields, :defensive_energy, :manage_hit, :reset_hits, :got_wounded, :inc_consecutive_hits
     end
 end

@@ -19,8 +19,8 @@ module Irrgarten
 		
 		def have_a_winner
 			output = false
-			for i in 0..(@n_rows-1) do
-				for j  in 0..(@n_cols-1) do
+			for i in 0...@n_rows do
+				for j  in 0...@n_cols do
 					if @players[i][j] != nil
 						player = @players[i][j]
 						if exit_pos(player.get_row, player.get_col)
@@ -58,8 +58,8 @@ module Irrgarten
 		
 		def to_s
 			output = ""
-			for i in 0..(@n_rows-1) do
-				for j  in 0..(@n_cols-1) do
+			for i in 0...@n_rows do
+				for j  in 0...@n_cols do
 					output += @labyrinth[i][j]
 				end
 				output += '\n'
