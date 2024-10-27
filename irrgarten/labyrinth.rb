@@ -107,16 +107,44 @@ module Irrgarten
 		def spread_players(players)
 		end
 		
+		# Check this
 		def put_player(direction, player)
+			old_row = Player::get_row()
+			old_col = Player::get_col()
+
+			new_pos = dir_2_pos(old_row, old_col, direction)
+		
+			monster = put_player_2D(old_row, old_col, new_pos[0], new_pos[1], player)
+			
+			return monster
 		end
 		
+		#TODO: Check this and also what is 1.1:set(row,col,BLOCK_CHAR) on diagram
 		def add_block(orientation, start_row, start_col, length)
+			if orientation == Orientation::VERTICAL
+				inc_row = 1
+				inc_col = 0
+			else
+				inc_row = 0 
+				inc_col = 1
+			end
+
+			@@ROW = start_row
+			@@COL = start_col
+
+			while pos_OK(@@ROW, @@COL) && (empty_pos(@@ROW,@@COL)) && length > 0
+				length -= 1
+				row += inc_row
+				col += inc_col
+			end
 		end
 		
 		def valid_moves(row, col)
 		end
 		
+		# ?
 		def put_player_2D
+			output = nil
 		end
 		
 		private :pos_OK, :empty_pos, :exit_pos, :monster_pos, :combat_pos, :can_step_on, :random_empty_pos, :update_old_pos, :dir_2_pos, :put_player_2D
