@@ -105,9 +105,12 @@ module Irrgarten
 		end
 		
 		def spread_players(players)
+			for i in 0...@players.length do 
+				pos = random_empty_pos()
+				put_player_2D(-1, -1, pos[@@ROW], pos[@@COL], players[i])
+			end
 		end
 		
-		# Check this
 		def put_player(direction, player)
 			old_row = Player::get_row()
 			old_col = Player::get_col()
@@ -119,7 +122,6 @@ module Irrgarten
 			return monster
 		end
 		
-		#TODO: Check this and also what is 1.1:set(row,col,BLOCK_CHAR) on diagram
 		def add_block(orientation, start_row, start_col, length)
 			if orientation == Orientation::VERTICAL
 				inc_row = 1
@@ -133,18 +135,57 @@ module Irrgarten
 			@@COL = start_col
 
 			while pos_OK(@@ROW, @@COL) && (empty_pos(@@ROW,@@COL)) && length > 0
+				@labyrinth[@@ROW][@@COL] = BLOCK_CHAR;
 				length -= 1
-				row += inc_row
-				col += inc_col
+				@@ROW += inc_row
+				@@COL += inc_col
 			end
 		end
 		
 		def valid_moves(row, col)
+			output = Array.new
+			if (can_step_on(row+1, col))
+				output.push(Directions.DOWN)
+			end
+
+			if (can_step_on(row-1, col))
+				output.push(Directions.UP)
+			end
+
+			if (can_step_on(row, col-1))
+				output.push(Directions.LEFT)
+			end
+
+			if (can_step_on(row, col+1))
+				output.push(Directions.RIGHT)
+			end
+
+			return output
 		end
 		
-		# ?
-		def put_player_2D
+		def put_player_2D(old_row, old_col, row, col, player)
 			output = nil
+			if (can_step_on(row, col))
+				if (pos_OK(old_row, old_col))
+					p = @players[old_row][old_col]
+					if (p == player)
+						update_old_pos(old_row, old_col);
+						player[old_row][old_col] = nil;
+					end
+				end
+
+				if (monster_pos(row, col))
+					@labyrinth[row][col] = COMBAT_CHAR;
+					output = @monsters[row][col];
+				else
+					number = player.get_number
+					@labyrinth[row][col] = number;
+				end
+			end
+
+			@players[row][col] = player;
+			player.set_pos(row, col);
+			return output
 		end
 		
 		private :pos_OK, :empty_pos, :exit_pos, :monster_pos, :combat_pos, :can_step_on, :random_empty_pos, :update_old_pos, :dir_2_pos, :put_player_2D
