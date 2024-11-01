@@ -91,12 +91,18 @@ module Irrgarten
             "  Shields: #{@shields}\n" +
         end
 
-        def receive_weapon(weapon)
-            throw NotImplementedError.new("This method will be implemented in the next practice")
+        def receive_weapon(w)
+            @weapons.delete_if{|weapon| weapon.discard}
+            if @weapons.size < MAX_WEAPONS
+            	@weapons.push(w)
+            end
         end
 
         def receive_shield(s)
-            throw NotImplementedError.new("This method will be implemented in the next practice")
+            @shields.delete_if{|shield| shield.discard}
+            if @shields.size < MAX_SHIELDS
+            	@shields.push(s)
+            end
         end
 
         def new_weapon
