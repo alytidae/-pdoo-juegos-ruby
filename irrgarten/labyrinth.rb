@@ -145,19 +145,19 @@ module Irrgarten
 		def valid_moves(row, col)
 			output = Array.new
 			if (can_step_on(row+1, col))
-				output.push(Directions.DOWN)
+				output.push(Directions::DOWN)
 			end
 
 			if (can_step_on(row-1, col))
-				output.push(Directions.UP)
+				output.push(Directions::UP)
 			end
 
 			if (can_step_on(row, col-1))
-				output.push(Directions.LEFT)
+				output.push(Directions::LEFT)
 			end
 
 			if (can_step_on(row, col+1))
-				output.push(Directions.RIGHT)
+				output.push(Directions::RIGHT)
 			end
 
 			return output
