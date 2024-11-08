@@ -88,7 +88,7 @@ module Irrgarten
             "  Position: (#{@row}, #{@col})\n" +
             "  Consecutive Hits: #{@consecutive_hits}\n" +
             "  Weapons: #{@weapons}\n" +
-            "  Shields: #{@shields}\n" +
+            "  Shields: #{@shields}\n"
         end
 
         def receive_weapon(w)
