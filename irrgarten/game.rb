@@ -5,7 +5,7 @@ module Irrgarten
 
     class Game
         def initialize(nplayers)
-            @current_player_index = 0
+            @current_player_index = Dice.who_starts(nplayers)
             @log = ""  
             @monsters = []  
 
