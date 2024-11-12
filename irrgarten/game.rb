@@ -13,27 +13,27 @@ module Irrgarten
             @labyrinth = Labyrinth.new(10, 10, 9, 9)
             @players = []  
 
-            nplayers.times do |i|
+            for i in 0...nplayers do
                 @players << Player.new(i + 1, Dice.random_intelligence, Dice.random_strength)
             end
 
             @current_player = @players[@current_player_index]  
 
 			configure_labyrinth
-			spread_players
+			@labyrinth.spread_players(@players)
         end
 
         def finished
 			@labyrinth.have_a_winner
         end
 
-        def get_game_state
+        def game_state
             GameState.new(@labyrinth, @players, @monsters, @current_player_index, finished, @log)
         end
 
         def configure_labyrinth
-            # TODO: Complete later in the next practice
-            throw NotImplementedError.new("This method will be implemented in the next practice")
+            @labyrinth.add_block(Orientation::HORIZONTAL, 3, 3, 3)
+            @labyrinth.add_monster(5,7, Monster.new("Hermenegildo", Dice.random_intelligence, Dice.random_strength))
         end
 
         def next_player
@@ -61,7 +61,7 @@ module Irrgarten
             	if !lose then
             		player_attack = @current_player.attack
             		winner = GameCharacter::PLAYER
-            		lose = @monster.defend(player_attack)
+            		lose = monster.defend(player_attack)
             	end
             end
             log_rounds(rounds, MAX_ROUNDS)
@@ -108,6 +108,8 @@ module Irrgarten
 			end_game = finished
 			if !end_game then
 				next_player
+			else
+				log_player_won
 			end
 			return end_game
 		end

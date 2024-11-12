@@ -6,10 +6,9 @@ module Irrgarten
 		MONSTER_CHAR = 'M'
 		COMBAT_CHAR = 'C'
 		EXIT_CHAR = 'E'
-		
+		ROW = 0
+		COL = 1
 		def initialize(n_rows, n_cols, exit_row, exit_col)
-			@@ROW = 0
-			@@COL = 1
 			@labyrinth = Array.new(n_rows){Array.new(n_cols){EMPTY_CHAR}}
 			@players = Array.new(n_rows){Array.new(n_cols){nil}}
 			@monsters = Array.new(n_rows){Array.new(n_cols){nil}}
@@ -60,9 +59,10 @@ module Irrgarten
 			output = ""
 			for i in 0...@n_rows do
 				for j  in 0...@n_cols do
-					output += @labyrinth[i][j]
+					char = "#{@labyrinth[i][j]}"
+					output = output + char
 				end
-				output += '\n'
+				output = output + "\n"
 			end
 			output
 		end
@@ -101,23 +101,25 @@ module Irrgarten
 			until empty_pos(pos[0], pos[1])
 				pos = [Dice.random_pos(@n_rows), Dice.random_pos(@n_cols)]
 			end
+			
+			#puts "returned position: #{pos[ROW]}, #{pos[COL]}"
 			pos
 		end
 		
 		def spread_players(players)
-			for i in 0...@players.length do 
+			for i in 0...players.length do 
 				pos = random_empty_pos()
-				put_player_2D(-1, -1, pos[@@ROW], pos[@@COL], players[i])
+				put_player_2D(-1, -1, pos[ROW], pos[COL], players[i])
 			end
 		end
 		
 		def put_player(direction, player)
-			old_row = Player::get_row()
-			old_col = Player::get_col()
+			old_row = player.get_row()
+			old_col = player.get_col()
 
 			new_pos = dir_2_pos(old_row, old_col, direction)
 		
-			monster = put_player_2D(old_row, old_col, new_pos[0], new_pos[1], player)
+			monster = put_player_2D(old_row, old_col, new_pos[ROW], new_pos[COL], player)
 			
 			return monster
 		end
@@ -170,14 +172,14 @@ module Irrgarten
 					p = @players[old_row][old_col]
 					if (p == player)
 						update_old_pos(old_row, old_col);
-						player[old_row][old_col] = nil;
+						@players[old_row][old_col] = nil;
 					end
 				end
 
 				if (monster_pos(row, col))
 					@labyrinth[row][col] = COMBAT_CHAR;
 					output = @monsters[row][col];
-				else
+				elsif (!exit_pos(row,col))
 					number = player.get_number
 					@labyrinth[row][col] = number;
 				end
