@@ -8,9 +8,10 @@ include Irrgarten
 include UI
 include Control
 
-n_players = 0
+n_players = 1
+puts ARGV.length
 if ARGV.length == 0
-    @n_players = 1;            
+    n_players = 1;            
 else
     n_players = ARGV[0].to_i
 end
