@@ -9,7 +9,6 @@ include UI
 include Control
 
 n_players = 1
-puts ARGV.length
 if ARGV.length == 0
     n_players = 1;            
 else
