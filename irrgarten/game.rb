@@ -9,7 +9,6 @@ module Irrgarten
             @log = ""  
             @monsters = []  
 
-			#TODO: Decide what value put here.
             @labyrinth = Labyrinth.new(10, 10, 9, 9)
             @players = []  
 
@@ -19,12 +18,12 @@ module Irrgarten
 
             @current_player = @players[@current_player_index]  
 
-			configure_labyrinth
-			@labyrinth.spread_players(@players)
+      			configure_labyrinth
+      			@labyrinth.spread_players(@players)
         end
 
         def finished
-			@labyrinth.have_a_winner
+			    @labyrinth.have_a_winner
         end
 
         def game_state
@@ -87,32 +86,32 @@ module Irrgarten
             end
         end
 		
-		def next_step(preferred_direction)
-			@log = ""
-			dead = @current_player.dead
-			if !dead then
-				direction = actual_direction(preferred_direction)
-				if direction != preferred_direction then
-					log_player_no_orders
-				end
-				monster = @labyrinth.put_player(direction, @current_player)
-				if monster == nil then
-					log_no_monster
-				else
-					winner = combat(monster)
-					manage_reward(winner)
-				end
-			else
-				manage_resurrection
-			end
-			end_game = finished
-			if !end_game then
-				next_player
-			else
-				log_player_won
-			end
-			return end_game
-		end
+    		def next_step(preferred_direction)
+    			@log = ""
+    			dead = @current_player.dead
+    			if !dead then
+    				direction = actual_direction(preferred_direction)
+    				if direction != preferred_direction then
+    					log_player_no_orders
+    				end
+    				monster = @labyrinth.put_player(direction, @current_player)
+    				if monster == nil then
+    					log_no_monster
+    				else
+    					winner = combat(monster)
+    					manage_reward(winner)
+    				end
+    			else
+    				manage_resurrection
+    			end
+    			end_game = finished
+    			if !end_game then
+    				next_player
+    			else
+    				log_player_won
+    			end
+    			return end_game
+    		end
 		
         def log_player_won
             @log += "Player #{@current_player.get_number} won!\n"
