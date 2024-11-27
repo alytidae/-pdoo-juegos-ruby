@@ -68,5 +68,14 @@ module Irrgarten
             probability = 1 - (uses_left.to_f / MAX_USES)
             @generator.rand < probability
         end
+        
+        def self.next_step(preference, valid_moves, intelligence)
+        	if @generator.rand < (intelligence / MAX_INTELLIGENCE) then
+        		return preference
+        	else
+        		idx = @generator.rand(0...valid_moves.size)
+        		return valid_moves[idx]
+        	end
+        end
     end
 end
