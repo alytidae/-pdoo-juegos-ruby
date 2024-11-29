@@ -48,11 +48,11 @@ module Irrgarten
             @health <= 0
         end
         
-        def move(direction, validMoves)
-            size = validMoves.size
-            contained = validMoves.include?(direction)
+        def move(direction, valid_moves)
+            size = valid_moves.size
+            contained = valid_moves.include?(direction)
             if (size > 0 && !contained)
-            	return validMoves[0]
+            	return valid_moves[0]
             else
             	return direction
             end
