@@ -190,6 +190,10 @@ module Irrgarten
 			return output
 		end
 		
+		def replace_player(old_player, new_player)
+			@players[old_player.get_row][old_player.get_col] = new_player
+		end
+		
 		private :pos_OK, :empty_pos, :exit_pos, :monster_pos, :combat_pos, :can_step_on, :random_empty_pos, :update_old_pos, :dir_2_pos, :put_player_2D
 	end
 end

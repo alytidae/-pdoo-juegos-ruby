@@ -79,7 +79,12 @@ module Irrgarten
         def manage_resurrection
             resurrect = Dice.resurrect_player
             if resurrect then
-            	@current_player.resurrect
+            	old_player = @current_player
+            	fuzzy_player = FuzzyPlayer.new(@current_player)
+            	fuzzy_player.resurrect
+            	@current_player = fuzzy_player
+            	@players[@current_player_index] = fuzzy_player
+            	@labyrinth.replace_player(old_player, fuzzy_player)
             	log_resurrected
             else
             	log_player_skip_turn
