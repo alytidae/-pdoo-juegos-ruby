@@ -45,7 +45,7 @@ module Irrgarten
         end
 
         def to_s
-            "Character #{@name}:\n" +
+            "  #{@name}:\n" +
             "  Intelligence: #{@intelligence}\n" +
             "  Strength: #{@strength}\n" +
             "  Health: #{@health}\n" +
