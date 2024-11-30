@@ -8,46 +8,24 @@ module Irrgarten
 
     class Player
         def initialize(number, intelligence, strength)
+            super("Player #" + number.to_s(), intelligence, strength, INITIAL_HEALTH)
             @number = number
-            @name = "Player #" + number.to_s()
-            @intelligence = intelligence
-            @strength = strength
-            @health = INITIAL_HEALTH
-            @row = -1
-            @col = -1
             @consecutive_hits = 0
             @weapons = []
             @shields = []
         end
 
         def resurrect
+            set_health(INITIAL_HEALTH)
+            @consecutive_hits = 0
             @weapons = []
             @shields = []
-            @health = INITIAL_HEALTH
-            @consecutive_hits = 0
         end
 
-        def get_row
-            @row
-        end
-
-        def get_col
-            @col
-        end
-            
         def get_number
             @number
         end
 
-        def set_pos(row, col)
-            @row = row
-            @col = col
-        end
-        
-        def dead
-            @health <= 0
-        end
-        
         def move(direction, valid_moves)
             size = valid_moves.size
             contained = valid_moves.include?(direction)
@@ -81,11 +59,8 @@ module Irrgarten
         end
 
         def to_s
-            "Player #{@name}:\n" +
-            "  Intelligence: #{@intelligence}\n" +
-            "  Strength: #{@strength}\n" +
-            "  Health: #{@health}\n" +
-            "  Position: (#{@row}, #{@col})\n" +
+            "Player #{@name}:\n" + 
+            super() + 
             "  Consecutive Hits: #{@consecutive_hits}\n" +
             "  Weapons: #{@weapons}\n" +
             "  Shields: #{@shields}\n"
@@ -151,10 +126,6 @@ module Irrgarten
 
         def reset_hits
             @consecutive_hits = 0
-        end
-
-        def got_wounded
-            @health -= 1
         end
 
         def inc_consecutive_hits
