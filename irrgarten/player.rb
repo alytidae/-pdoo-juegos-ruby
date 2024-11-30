@@ -6,7 +6,7 @@ module Irrgarten
     INITIAL_HEALTH = 10
     HITS2LOSE = 3
 
-    class Player
+    class Player < LabyrinthCharacter
         def initialize(number, intelligence, strength)
             super("Player #" + number.to_s(), intelligence, strength, INITIAL_HEALTH)
             @number = number
