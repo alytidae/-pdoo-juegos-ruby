@@ -14,6 +14,16 @@ module Irrgarten
             @weapons = []
             @shields = []
         end
+        
+        protected attr_reader :consecutive_hits, :weapons, :shields # Para poder hacer la copia
+        
+        def copy(player)
+        	super(player)
+        	@number = player.get_number
+        	@consecutive_hits = player.consecutive_hits
+        	@weapons = player.weapons
+        	@shields = player.shields
+        end
 
         def resurrect
             set_health(INITIAL_HEALTH)
@@ -122,6 +132,10 @@ module Irrgarten
             else
             	return false
             end
+        end
+        
+        def got_wounded
+        	@health = 0
         end
 
         def reset_hits

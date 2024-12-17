@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-require "./irrgarten/irrgarten.rb"
-require "./controller/controller.rb"
+require "./irrgarten/irrgarten"
+require "./controller/controller"
 require "./ui/textUI.rb"
 
 include Irrgarten

@@ -10,6 +10,17 @@ module Irrgarten
             @row = -1
             @col = -1
         end
+        
+        protected attr_reader :name, :intelligence, :strength, :health, :row, :col #para poder hacer la copia
+        
+        def copy(lab_char)
+        	@name = lab_char.name
+        	@intelligence = lab_char.intelligence
+        	@strength = lab_char.strength
+        	@health = lab_char.health
+        	@row = lab_char.row
+        	@col = lab_char.col
+        end
 
         def dead
             @health <= 0
@@ -45,11 +56,7 @@ module Irrgarten
         end
 
         def to_s
-            "  #{@name}:\n" +
-            "  Intelligence: #{@intelligence}\n" +
-            "  Strength: #{@strength}\n" +
-            "  Health: #{@health}\n" +
-            "  Position: (#{@row}, #{@col})\n" +
+            "  #{@name}:\n  Intelligence: #{@intelligence}\n  Strength: #{@strength}\n  Health: #{@health}\n  Position: (#{@row}, #{@col})\n"
         end
 
         def got_wounded
